@@ -1,27 +1,9 @@
-# Reproducible Research: Peer Assessment 1
-<style>
-    table {
-        border: 1px #e5e5e5 solid;
-    }
-
-    table tr:nth-child(even) {
-        background-color: #f1f1f1;
-    }
-
-    table td, table th {
-        padding: 5px 20px;
-        text-align: center;
-        border: none;
-        border-right: 1px solid #e5e5e5;
-    }
-
-    table th {
-        background-color: #f1f1f1;
-        border-bottom: 2px #e5e5e5 solid;
-    }
-
-</style>
-
+---
+title: "Reproducible Research: Peer Assessment 1"
+output:
+  html_document:
+    keep_md: true
+---
 Read the data into r, and load the required libraries:
 
 
@@ -51,7 +33,7 @@ Create a histogram of the total number of steps taken each day:
 hist(steps_data$steps, col="brown", main="Histogram of the total number of steps", xlab="Total number of steps");
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
 Calculate mean and median of the total number of steps taken per day:
 
@@ -69,7 +51,7 @@ print(xtable(mean_median), type="html");
 ```
 
 <!-- html table generated in R 3.1.3 by xtable 1.7-4 package -->
-<!-- Sat Apr 18 23:15:29 2015 -->
+<!-- Sat Apr 18 23:32:26 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> date </th> <th> mean </th> <th> median </th>  </tr>
   <tr> <td align="right"> 1 </td> <td> 2012-10-01 </td> <td align="right">  </td> <td align="right">  </td> </tr>
@@ -150,7 +132,7 @@ colnames(mean_interval) <- c("interval","mean");
 ggplot(data = mean_interval, aes(x = as.numeric(interval), y = mean, group = 1)) + geom_line() + xlab("Time Intervals(minutes)") + ylab("Average Steps across all days") + ggtitle("Average Daily Activity");
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
 
 Calculate the 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps:
 
@@ -213,7 +195,7 @@ colnames(imp_steps_data) <- c("date","steps");
 hist(imp_steps_data$steps, col="maroon", main="Histogram of the total number of steps(Imputed Data)", xlab="Total number of steps");
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
 
 
 Calculate and report the mean and median total number of steps taken per day, using the imputed dataset:
@@ -232,7 +214,7 @@ print(xtable(imp_mean_median), type="html");
 ```
 
 <!-- html table generated in R 3.1.3 by xtable 1.7-4 package -->
-<!-- Sat Apr 18 23:17:21 2015 -->
+<!-- Sat Apr 18 23:34:13 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> date </th> <th> mean </th> <th> median </th>  </tr>
   <tr> <td align="right"> 1 </td> <td> 2012-10-01 </td> <td align="right"> 37.38 </td> <td align="right"> 34.11 </td> </tr>
@@ -345,7 +327,7 @@ data_week$day <- as.factor(data_week$day);
 qplot(data = data_week, x = as.numeric(interval), y = mean, facets = day ~ ., geom = "smooth", method = "loess") + labs(title="Average Daily Activity for Weekends and Weekdays", x ="Time interval(minutes)", y="Average number of steps");
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-12-1.png) 
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png) 
 
 
 

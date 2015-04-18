@@ -4,30 +4,6 @@ output:
   html_document:
     keep_md: true
 ---
-<style>
-    table {
-        border: 1px #e5e5e5 solid;
-    }
-
-    table tr:nth-child(even) {
-        background-color: #f1f1f1;
-    }
-
-    table td, table th {
-        padding: 5px 20px;
-        text-align: center;
-        border: none;
-        border-right: 1px solid #e5e5e5;
-    }
-
-    table th {
-        background-color: #f1f1f1;
-        border-bottom: 2px #e5e5e5 solid;
-    }
-
-</style>
-<br />
-<br />
 Read the data into r, and load the required libraries:
 
 ```{r}
