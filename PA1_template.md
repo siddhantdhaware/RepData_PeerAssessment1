@@ -26,7 +26,7 @@ steps_data <- ldply(sapply(split_date, sum, na.rm=TRUE));
 colnames(steps_data) <- c("date","steps");
 ```
 
-Create a histogram of the total number of steps taken each day:
+**Create a histogram of the total number of steps taken each day:**
 
 
 ```r
@@ -35,7 +35,7 @@ hist(steps_data$steps, col="brown", main="Histogram of the total number of steps
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
-Calculate mean and median of the total number of steps taken per day:
+**Calculate mean and median of the total number of steps taken per day:**
 
 
 ```r
@@ -51,7 +51,7 @@ print(xtable(mean_median), type="html");
 ```
 
 <!-- html table generated in R 3.1.3 by xtable 1.7-4 package -->
-<!-- Sat Apr 18 23:32:26 2015 -->
+<!-- Sun Apr 19 00:01:28 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> date </th> <th> mean </th> <th> median </th>  </tr>
   <tr> <td align="right"> 1 </td> <td> 2012-10-01 </td> <td align="right">  </td> <td align="right">  </td> </tr>
@@ -121,7 +121,7 @@ print(xtable(mean_median), type="html");
 
 ### 2. What is the average daily activity pattern?
 
-Create a Plot for the Average Daily Activity:
+**Create a Plot for the Average Daily Activity:**
 
 
 ```r
@@ -134,7 +134,7 @@ ggplot(data = mean_interval, aes(x = as.numeric(interval), y = mean, group = 1))
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
 
-Calculate the 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps:
+**Calculate the 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps:**
 
 
 ```r
@@ -149,7 +149,7 @@ as.numeric(mean_interval[mean_interval$mean == max(mean_interval$mean),]$interva
 
 ### 3. Imputing missing values
 
-Calculate and report the total number of missing values in the dataset:
+**Calculate and report the total number of missing values in the dataset:**
 
 
 ```r
@@ -162,7 +162,7 @@ nrow(data[is.na(data$steps),])
 
 Devise a strategy for filling in all of the missing values in the dataset and create a new dataset that is equal to the original dataset but with the missing data filled in.
 
-Strategy used - Average of the steps accross all days, for a particular interval.
+**Strategy used - Average of the steps accross all days, for a particular interval.**
 
 
 ```r
@@ -184,7 +184,7 @@ imp_data <- clean(d);
 write.csv(imp_data, "imputed.csv");
 ```
 
-Histogram of the total number of steps taken each day, using the imputed dataset:
+**Histogram of the total number of steps taken each day, using the imputed dataset:**
 
 
 ```r
@@ -192,13 +192,13 @@ imp_split_date <- split(imp_data[,c("steps")], imp_data$date);
 imp_steps_data <- ldply(sapply(imp_split_date, sum, na.rm=TRUE));
 colnames(imp_steps_data) <- c("date","steps");
 
-hist(imp_steps_data$steps, col="maroon", main="Histogram of the total number of steps(Imputed Data)", xlab="Total number of steps");
+hist(imp_steps_data$steps, col="brown", main="Histogram of the total number of steps(Imputed Data)", xlab="Total number of steps");
 ```
 
 ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
 
 
-Calculate and report the mean and median total number of steps taken per day, using the imputed dataset:
+**Calculate and report the mean and median total number of steps taken per day, using the imputed dataset:**
 
 
 ```r
@@ -214,7 +214,7 @@ print(xtable(imp_mean_median), type="html");
 ```
 
 <!-- html table generated in R 3.1.3 by xtable 1.7-4 package -->
-<!-- Sat Apr 18 23:34:13 2015 -->
+<!-- Sun Apr 19 00:01:28 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> date </th> <th> mean </th> <th> median </th>  </tr>
   <tr> <td align="right"> 1 </td> <td> 2012-10-01 </td> <td align="right"> 37.38 </td> <td align="right"> 34.11 </td> </tr>
@@ -281,15 +281,19 @@ print(xtable(imp_mean_median), type="html");
    </table>
 
 <br />
-*Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?*
+**Do these values differ from the estimates from the first part of the assignment?** 
 
->Yes, the values definitely differ from the estimates from the first part of the assignment. By imputing missing data on the estimates of the total daily number of steps, we have a more accurate histogram and table. Out of the 17568 rows in the dataset, 2304 are NA's. Which means we don't have the data for those rows, and hence while performing the calculations in the first part of the assignment, we ignored these values. I am replacing these missing values with the mean of their respective intervals, from all days. Because the subject of this experiment, is likely to do the same activity at a particular time interval for all days. That being said, using the mean of the time interval may not be close to the actual data. But I believe that replacing NA's with the mean of that time interval accurate, is more accurate than completely ignoring those values.
+>The values that were not missing are exactly the same, but the values that were NA's previously, now have a value.
+
+**What is the impact of imputing missing data on the estimates of the total daily number of steps?**
+
+>By imputing missing data, we have a more accurate histogram and table of mean and median. Out of the 17568 rows in the dataset, 2304 are NA's. Which means we don't have the data for those rows, and hence while performing the calculations in the first part of the assignment, we ignored these values. Now these missing values are replaced with the mean of their respective intervals, from all days. Because the subject of this experiment, is likely to do the same activity at a particular time interval for all days, the dataset has now become more accurate. That being said, using the mean of the time interval may not be close to the actual data. But I believe that replacing NA's with the mean of that time interval accurate, is more accurate than completely ignoring those values.
 
 -----
 
 ### 4. Are there differences in activity patterns between weekdays and weekends?
 
-Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day:
+**Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day:**
 
 
 ```r
@@ -302,7 +306,7 @@ fac <- factor(days);
 imp_data$day <- fac;
 ```
 
-Creating a Plot for the Average Daily Activity, for weekends and weekdays in panels:
+**Creating a Plot for the Average Daily Activity, for weekends and weekdays in panels:**
 
 
 ```r

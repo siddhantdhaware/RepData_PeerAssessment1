@@ -24,13 +24,13 @@ steps_data <- ldply(sapply(split_date, sum, na.rm=TRUE));
 colnames(steps_data) <- c("date","steps");
 ```
 
-Create a histogram of the total number of steps taken each day:
+**Create a histogram of the total number of steps taken each day:**
 
 ```{r}
 hist(steps_data$steps, col="brown", main="Histogram of the total number of steps", xlab="Total number of steps");
 ```
 
-Calculate mean and median of the total number of steps taken per day:
+**Calculate mean and median of the total number of steps taken per day:**
 
 ```{r, results="asis"}
 mean_median <- aggregate(data[, c("steps")], by = list(data$date), FUN = mean, na.rm = TRUE);
@@ -49,7 +49,7 @@ print(xtable(mean_median), type="html");
 
 ### 2. What is the average daily activity pattern?
 
-Create a Plot for the Average Daily Activity:
+**Create a Plot for the Average Daily Activity:**
 
 ```{r}
 split_interval <- split(data[,c("steps")],data$interval);
@@ -60,7 +60,7 @@ ggplot(data = mean_interval, aes(x = as.numeric(interval), y = mean, group = 1))
 
 ```
 
-Calculate the 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps:
+**Calculate the 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps:**
 
 ```{r}
 as.numeric(mean_interval[mean_interval$mean == max(mean_interval$mean),]$interval)
@@ -70,7 +70,7 @@ as.numeric(mean_interval[mean_interval$mean == max(mean_interval$mean),]$interva
 
 ### 3. Imputing missing values
 
-Calculate and report the total number of missing values in the dataset:
+**Calculate and report the total number of missing values in the dataset:**
 
 ```{r}
 nrow(data[is.na(data$steps),])
@@ -78,7 +78,7 @@ nrow(data[is.na(data$steps),])
 
 Devise a strategy for filling in all of the missing values in the dataset and create a new dataset that is equal to the original dataset but with the missing data filled in.
 
-Strategy used - Average of the steps accross all days, for a particular interval.
+**Strategy used - Average of the steps accross all days, for a particular interval.**
 
 ```{r, cache=TRUE}
 d <- data;
@@ -99,18 +99,18 @@ imp_data <- clean(d);
 write.csv(imp_data, "imputed.csv");
 ```
 
-Histogram of the total number of steps taken each day, using the imputed dataset:
+**Histogram of the total number of steps taken each day, using the imputed dataset:**
 
 ```{r}
 imp_split_date <- split(imp_data[,c("steps")], imp_data$date);
 imp_steps_data <- ldply(sapply(imp_split_date, sum, na.rm=TRUE));
 colnames(imp_steps_data) <- c("date","steps");
 
-hist(imp_steps_data$steps, col="maroon", main="Histogram of the total number of steps(Imputed Data)", xlab="Total number of steps");
+hist(imp_steps_data$steps, col="brown", main="Histogram of the total number of steps(Imputed Data)", xlab="Total number of steps");
 ```
 
 
-Calculate and report the mean and median total number of steps taken per day, using the imputed dataset:
+**Calculate and report the mean and median total number of steps taken per day, using the imputed dataset:**
 
 ```{r, results="asis"}
 
@@ -127,15 +127,19 @@ print(xtable(imp_mean_median), type="html");
 ```
 
 <br />
-*Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?*
+**Do these values differ from the estimates from the first part of the assignment?** 
 
->Yes, the values definitely differ from the estimates from the first part of the assignment. By imputing missing data on the estimates of the total daily number of steps, we have a more accurate histogram and table. Out of the 17568 rows in the dataset, 2304 are NA's. Which means we don't have the data for those rows, and hence while performing the calculations in the first part of the assignment, we ignored these values. I am replacing these missing values with the mean of their respective intervals, from all days. Because the subject of this experiment, is likely to do the same activity at a particular time interval for all days. That being said, using the mean of the time interval may not be close to the actual data. But I believe that replacing NA's with the mean of that time interval accurate, is more accurate than completely ignoring those values.
+>The values that were not missing are exactly the same, but the values that were NA's previously, now have a value.
+
+**What is the impact of imputing missing data on the estimates of the total daily number of steps?**
+
+>By imputing missing data, we have a more accurate histogram and table of mean and median. Out of the 17568 rows in the dataset, 2304 are NA's. Which means we don't have the data for those rows, and hence while performing the calculations in the first part of the assignment, we ignored these values. Now these missing values are replaced with the mean of their respective intervals, from all days. Because the subject of this experiment, is likely to do the same activity at a particular time interval for all days, the dataset has now become more accurate. That being said, using the mean of the time interval may not be close to the actual data. But I believe that replacing NA's with the mean of that time interval accurate, is more accurate than completely ignoring those values.
 
 -----
 
 ### 4. Are there differences in activity patterns between weekdays and weekends?
 
-Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day:
+**Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day:**
 
 ```{r}
 days <- weekdays(as.Date(imp_data$date));
@@ -148,7 +152,7 @@ imp_data$day <- fac;
 
 ```
 
-Creating a Plot for the Average Daily Activity, for weekends and weekdays in panels:
+**Creating a Plot for the Average Daily Activity, for weekends and weekdays in panels:**
 
 ```{r}
 weekday <- imp_data[imp_data$day == "weekday",];
