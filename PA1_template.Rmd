@@ -26,7 +26,8 @@ output:
     }
 
 </style>
-
+<br />
+<br />
 Read the data into r, and load the required libraries:
 
 ```{r}
